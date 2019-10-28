@@ -41,7 +41,7 @@ func (strings *Strings) SetBytes(value []byte, args ...interface{}) error {
 	return nil
 }
 
-func (strings *Strings) SetUint64(value string, args ...interface{}) error {
+func (strings *Strings) SetUint64(value uint64, args ...interface{}) error {
 	conn := strings.engine.conn
 	key := strings.engine.key
 
