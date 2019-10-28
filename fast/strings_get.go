@@ -54,13 +54,13 @@ func (strings *Strings) GetString() (string, error) {
 	return value, nil
 }
 
-func (strings *Strings) GetUint64() (string, error) {
+func (strings *Strings) GetUint64() (uint64, error) {
 	conn := strings.engine.conn
 	key := strings.engine.key
 
-	value, err := redis.String(strings.get(conn, key))
+	value, err := redis.Uint64(strings.get(conn, key))
 	if err != nil {
-		return "", err
+		return uint64(0), err
 	}
 
 	return value, nil
