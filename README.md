@@ -15,17 +15,18 @@
      
      const _CACHE_PREFIX_USER_KEY = "project:user:id:%v"
      
-     func CacheCronTime(ctx context.Context, userID uint64) *fast.Strings {
-        conn, err := NewPool().GetContext(ctx)
-        if err != nil {
-            return nil
-        }
+     func CacheCronTime(conn redis.Conn, userID uint64) *fast.Strings {
      
         return fast.NewStrings(conn, fmt.Sprintf(_CACHE_PREFIX_USER_KEY, userID))
      }
      
      func main() {
-        fs := CacheCronTime(context.Background(), 1)
+        conn, err := NewPool().GetContext(context.Background())
+        if err != nil {
+            return nil
+        }
+     
+        fs := CacheCronTime(conn, 1)
         err := fs.SetUint64(1234)
         if err != nil {
             fmt.Println(err)
